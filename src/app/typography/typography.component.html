@@ -1,0 +1,128 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+
+                    <div class="card-header card-header-danger">
+                        <div class="btn-group">
+                            <strong>
+                                <h4>Courses List</h4>
+                            </strong>
+                            <div class="m-auto">
+                                <button style="left:650%;" (click)="saveCourses()" mat-raised-button color="primary">Add
+                                    Courses</button></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="container">
+                                <div *ngIf="collegeListshow" class="table">
+                                    <table class="table">
+                                        <thead class=" text-primary">
+                                            <th>Title</th>
+                                            <th>Attribute</th>
+                                            <th>ReviewDetail</th>
+                                            <th>Action</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let course of courseList| paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                                                <td>{{course.title}}</td>
+                                                <td>{{course.attribute}}</td>
+                                                <td *ngIf="course.reviewDetail; else elseBlock">
+                                                    <ul *ngFor="let review of course.reviewDetail">
+                                                        <li>{{review.label}}</li>
+                                                        <li>{{review.value}}</li>
+                                                    </ul>
+                                                </td>
+                                                <!-- <td>
+                                                    <ng-template #elseBlock>No Review</ng-template>
+                                                </td> -->
+                                                <td>
+                                                    <i class="material-icons" (click)="EditCourses(course)" title="Edit"
+                                                        style="cursor: pointer;" title="Edit">edit</i>
+                                                    <i class="material-icons" (click)="DeleteCourses(course)"
+                                                        title="Edit" style="cursor: pointer;" title="Edit">delete</i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <form [formGroup]="MultipledataForm" class="example-form">
+                            <div *ngIf="datagramshow" class="table-responsive">
+                                <p>
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Fill title</mat-label>
+                                        <input matInput placeholder="Please Enter Your title" formControlName="title">
+                                        <mat-hint>title</mat-hint>
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Fill Attribute</mat-label>
+                                        <input matInput placeholder="attribute" formControlName="attribute">
+                                        <mat-hint>attribute</mat-hint>
+                                    </mat-form-field>
+                                </p>
+                                <p>
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Fill Review detail</mat-label>
+                                        <input matInput placeholder="review" formControlName="reviewDetail">
+                                        <mat-hint>review</mat-hint>
+                                    </mat-form-field>
+                                </p>
+
+                                <button type="button" class="btn btn-primary" (click)="UpdateCollege()">Submit
+                                    Details</button>
+                                <button type="button" class="btn btn-danger" (click)="canceldetails()">Cancel
+                                    Details</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form [formGroup]="AddCourses" class="example-form">
+                                <div *ngIf="addcoursesList" class="table-responsive">
+                                    <p>
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Fill title</mat-label>
+                                            <input matInput placeholder="Please Enter Your title"
+                                                formControlName="title">
+                                            <mat-hint>title</mat-hint>
+                                        </mat-form-field>
+                                    </p>
+                                    <p>
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Fill Attribute</mat-label>
+                                            <input matInput placeholder="attribute" formControlName="attribute">
+                                            <mat-hint>attribute</mat-hint>
+                                        </mat-form-field>
+                                    </p>
+                                    <p>
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Fill Review detail</mat-label>
+                                            <input matInput placeholder="review" formControlName="reviewDetail">
+                                            <mat-hint>review</mat-hint>
+                                        </mat-form-field>
+                                    </p>
+
+                                    <button type="button" class="btn btn-primary" (click)="AddCourse()">Submit
+                                        Details</button>
+                                    <button type="button" class="btn btn-danger" (click)="canceldetails()">Cancel
+                                        Details</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

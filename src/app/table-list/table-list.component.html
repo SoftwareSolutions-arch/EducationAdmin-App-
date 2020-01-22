@@ -1,0 +1,460 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <div class="btn-group">
+                            <strong>
+                                <h4>College List</h4>
+                            </strong>
+                            <div class="m-auto">
+                                <button style="left:650%;" (click)="SaveCollege()" mat-raised-button color="primary">Add
+                                    College</button></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="container">
+                                <div *ngIf="collegeListshow" class="table">
+                                    <table>
+                                        <thead class=" text-primary">
+                                            <th>Image</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Highlight</th>
+                                            <th>Facilities</th>
+                                            <th>Infrastructure</th>
+                                            <th>Collegetype</th>
+                                            <th>City</th>
+                                            <th>Action</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let college of collegeList| paginate: { itemsPerPage: 10, currentPage: p }">
+                                                <!-- <td *ngIf="college.images; else noimages"> -->
+                                                <td><img style="height: 100px;width: 100px;"
+                                                        src="http://13.235.156.181/Education/uploads/{{college.collegepicture}}">
+                                                </td>
+                                                <ng-template #loggedOut>
+                                                    <td></td>
+                                                </ng-template>
+                                                <td>{{college.title}}</td>
+                                                <td>{{college.description}}</td>
+                                                <td>{{college.highlight}}</td>
+                                                <td>{{college.facilitie}}</td>
+                                                <td>{{college.infrastructure}}</td>
+                                                <td>{{college.collegetype}}</td>
+                                                <td>{{college.city}}</td>
+                                                <td>
+                                                    <i class="material-icons" (click)="EditCollege(college)"
+                                                        title="Edit" style="cursor: pointer;" title="Edit">edit</i>
+                                                    <i class="material-icons" (click)="DeleteCollege(college)"
+                                                        title="delete" style="cursor: pointer;"
+                                                        title="Delete">delete</i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                </div>
+                                <div *ngIf="collegeDetailsshow" class="table-responsive">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <form [formGroup]="CollegeForm" class="example-form">
+                                                    <h4>Select Your Country</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>Country</mat-label>
+                                                        <mat-select formControlName="country">
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option
+                                                                *ngFor="let country of CountryList;let i = index"
+                                                                [value]="country.name"
+                                                                (click)="SelectCountry(country._id,i)">
+                                                                {{country.name}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+
+                                                    <h4>Select Your state</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>state</mat-label>
+                                                        <mat-select formControlName="state" multiple>
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let state of StateList;let i = index"
+                                                                [value]="state.name" (click)="SelectState(state._id,i)">
+                                                                {{state.name}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>Select Your city</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>city</mat-label>
+                                                        <mat-select formControlName="city" multiple>
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let city of CityList;let i = index"
+                                                                [value]="city.name" (click)="SelectCity(i)">
+                                                                {{city.name}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>Course </h4>
+                                                    <mat-form-field>
+                                                        <mat-label>Select Your Course</mat-label>
+                                                        <mat-select formControlName="course">
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option
+                                                                *ngFor="let course of this.coursesLists;let i = index"
+                                                                [value]="course.title"
+                                                                (click)="SelectBranch(course._id,i)">
+                                                                {{course.title}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>Select Your Branch Name</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>Branch Name</mat-label>
+                                                        <mat-select formControlName="branches" multiple>
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let branches of this.BranchList"
+                                                                [value]="branches.branch">
+                                                                {{branches.branch}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>Select Your infrastructure Name</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>infrastructure Name</mat-label>
+                                                        <mat-select formControlName="infrastructure" multiple>
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let infra of this.infraList"
+                                                                [value]="infra.infrastructure">
+                                                                {{infra.infrastructure}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>Select Your Exam Type</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>Exam type</mat-label>
+                                                        <mat-select formControlName="exam" multiple>
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let exam of this.examType"
+                                                                [value]="exam.examtype">
+                                                                {{exam.examtype}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>Select Your College Type</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>College type</mat-label>
+                                                        <mat-select formControlName="collegetype">
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let collegetype of this.courseList"
+                                                                [value]="collegetype.college_types">
+                                                                {{collegetype.college_types}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>Fees</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>Fill fees</mat-label>
+                                                        <mat-select formControlName="fees">
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let fees of this.feesList"
+                                                                [value]="fees.fees">
+                                                                {{fees.fees}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>company</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>Fill company</mat-label>
+                                                        <mat-select formControlName="company" multiple>
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let company of this.companyType"
+                                                                [value]="company.company_name">
+                                                                {{company.company_name}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <p>
+                                                        <mat-form-field appearance="legacy">
+                                                            <mat-label>Fill title</mat-label>
+                                                            <input matInput placeholder="Please Enter Your title"
+                                                                formControlName="title">
+                                                            <mat-hint>title</mat-hint>
+                                                        </mat-form-field>
+                                                    </p>
+
+                                                    <p>
+                                                        <mat-form-field appearance="legacy">
+                                                            <mat-label>Fill url</mat-label>
+                                                            <input matInput placeholder="Please Enter Your url"
+                                                                formControlName="url">
+                                                            <mat-hint>url</mat-hint>
+                                                        </mat-form-field>
+                                                    </p>
+
+                                                </form>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <form [formGroup]="CollegeForm" class="example-form">
+                                                    <div *ngIf="collegeDetailsshow" class="table-responsive">
+                                                        <p>
+                                                            <mat-label>Fill placement</mat-label>
+                                                            <angular-editor formControlName="placement"
+                                                                [placeholder]="'Fill placement'">
+                                                            </angular-editor>
+                                                        </p>
+
+                                                        <p>
+                                                            <mat-label>Fill facilitie</mat-label>
+                                                            <angular-editor formControlName="facilitie"
+                                                                [placeholder]="'Fill facilitie'">
+                                                            </angular-editor>
+                                                        </p>
+
+                                                        <p>
+                                                            <mat-label>Fill highlight</mat-label>
+                                                            <angular-editor formControlName="highlight"
+                                                                [placeholder]="'Fill highlight'">
+                                                            </angular-editor>
+                                                        </p>
+                                                        <p>
+                                                            <mat-label>Fill description</mat-label>
+                                                            <angular-editor formControlName="description"
+                                                                [placeholder]="'Fill description'">
+                                                            </angular-editor>
+                                                        </p>
+                                                        <p>
+                                                            <mat-label>Fill address</mat-label>
+                                                            <angular-editor formControlName="address"
+                                                                [placeholder]="'Fill address'">
+                                                            </angular-editor><br>
+                                                        </p>
+
+                                                        <div class="upload-imgs">
+                                                            <mat-label>Please Insert Image</mat-label><br>
+                                                            <label class="custom-file-upload">
+                                                                <input class="hidden-input" type="file" accept='image/*'
+                                                                    height="120px" (change)="onSelectFile($event)">
+                                                            </label>
+                                                        </div>
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="text-center mt-6">
+                                                <button class="btn btn-success" (click)="UpdateCollege()">
+                                                    SubmitDetails</button>
+                                                <button class="btn btn-danger" (click)="canceldetails()">Cancel
+                                                    Details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="datagramshow" class="table-responsive">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <form [formGroup]="MultipledataForm" class="example-form">
+                                                    <h4>Select Your Country</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>Country</mat-label>
+                                                        <mat-select formControlName="country">
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option
+                                                                *ngFor="let country of CountryList;let i = index"
+                                                                [value]="country.name"
+                                                                (click)="SelectCountry(country._id,i)">
+                                                                {{country.name}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+
+                                                    <h4>Select Your state</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>state</mat-label>
+                                                        <mat-select formControlName="state" multiple>
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let state of StateList;let i = index"
+                                                                [value]="state.name" (click)="SelectState(state._id,i)">
+                                                                {{state.name}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>Select Your city</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>city</mat-label>
+                                                        <mat-select formControlName="city" multiple>
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let city of CityList;let i = index"
+                                                                [value]="city.name" (click)="SelectCity(i)">
+                                                                {{city.name}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>Course </h4>
+                                                    <mat-form-field>
+                                                        <mat-label>Select Your Course</mat-label>
+                                                        <mat-select formControlName="course">
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option
+                                                                *ngFor="let course of this.coursesLists;let i = index"
+                                                                [value]="course.title"
+                                                                (click)="SelectBranch(course._id,i)">
+                                                                {{course.title}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>Select Your Branch Name</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>Branch Name</mat-label>
+                                                        <mat-select formControlName="branches" multiple>
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let branches of this.BranchList"
+                                                                [value]="branches.branch">
+                                                                {{branches.branch}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>Select Your infrastructure Name</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>infrastructure Name</mat-label>
+                                                        <mat-select formControlName="infrastructure" multiple>
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let infra of this.infraList"
+                                                                [value]="infra.infrastructure">
+                                                                {{infra.infrastructure}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>Select Your Exam Type</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>Exam type</mat-label>
+                                                        <mat-select formControlName="exam" multiple>
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let exam of this.examType"
+                                                                [value]="exam.examtype">
+                                                                {{exam.examtype}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>Select Your College Type</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>College type</mat-label>
+                                                        <mat-select formControlName="collegetype">
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let collegetype of this.courseList"
+                                                                [value]="collegetype.college_types">
+                                                                {{collegetype.college_types}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>Fees</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>Fill fees</mat-label>
+                                                        <mat-select formControlName="fees">
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let fees of this.feesList"
+                                                                [value]="fees.fees">
+                                                                {{fees.fees}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <h4>company</h4>
+                                                    <mat-form-field>
+                                                        <mat-label>Fill company</mat-label>
+                                                        <mat-select formControlName="company" multiple>
+                                                            <mat-option disabled>None</mat-option>
+                                                            <mat-option *ngFor="let company of this.companyType"
+                                                                [value]="company.company_name">
+                                                                {{company.company_name}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <p>
+                                                        <mat-form-field appearance="legacy">
+                                                            <mat-label>Fill title</mat-label>
+                                                            <input matInput placeholder="Please Enter Your title"
+                                                                formControlName="title">
+                                                            <mat-hint>title</mat-hint>
+                                                        </mat-form-field>
+                                                    </p>
+
+                                                    <p>
+                                                        <mat-form-field appearance="legacy">
+                                                            <mat-label>Fill url</mat-label>
+                                                            <input matInput placeholder="Please Enter Your url"
+                                                                formControlName="url">
+                                                            <mat-hint>url</mat-hint>
+                                                        </mat-form-field>
+                                                    </p>
+
+                                                </form>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <form [formGroup]="MultipledataForm" class="example-form">
+                                                    <div *ngIf="datagramshow" class="table-responsive">
+                                                        <p>
+                                                            <mat-label>Fill placement</mat-label>
+                                                            <angular-editor formControlName="placement"
+                                                                [placeholder]="'Fill placement'">
+                                                            </angular-editor>
+                                                        </p>
+
+                                                        <p>
+                                                            <mat-label>Fill facilitie</mat-label>
+                                                            <angular-editor formControlName="facilitie"
+                                                                [placeholder]="'Fill facilitie'">
+                                                            </angular-editor>
+                                                        </p>
+
+                                                        <p>
+                                                            <mat-label>Fill highlight</mat-label>
+                                                            <angular-editor formControlName="highlight"
+                                                                [placeholder]="'Fill highlight'">
+                                                            </angular-editor>
+                                                        </p>
+                                                        <p>
+                                                            <mat-label>Fill description</mat-label>
+                                                            <angular-editor formControlName="description"
+                                                                [placeholder]="'Fill description'">
+                                                            </angular-editor>
+                                                        </p>
+                                                        <p>
+                                                            <mat-label>Fill address</mat-label>
+                                                            <angular-editor formControlName="address"
+                                                                [placeholder]="'Fill address'">
+                                                            </angular-editor><br>
+                                                        </p>
+
+                                                        <div class="upload-imgs">
+                                                            <mat-label>Please Insert Image</mat-label><br>
+                                                            <label class="custom-file-upload">
+                                                                <input class="hidden-input" type="file" accept='image/*'
+                                                                    height="120px" (change)="onSelectFile($event)">
+                                                            </label>
+                                                        </div>
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="text-center mt-6">
+                                                <button class="btn btn-success" (click)="submitalldetail()">
+                                                    SubmitDetails</button>
+                                                <button class="btn btn-danger" (click)="canceldetails()">Cancel
+                                                    Details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

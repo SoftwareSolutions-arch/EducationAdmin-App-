@@ -1,0 +1,6 @@
+/* You can add global styles to this file, and also import other style files */
+
+.fixed-plugin {
+    display: none !important;
+}
+.text-center.m-auto {float: right;width: 11%;margin: 1%;}

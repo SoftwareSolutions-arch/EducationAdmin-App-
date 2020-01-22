@@ -1,0 +1,129 @@
+<!-- <div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Fees List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>Fees</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        *ngFor="let data of courseList| paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                                        <td>{{data.fees}}</td>
+                                        <td>{{data.date}}</td>
+                                        <td>
+                                            <i class="material-icons" (click)="EditFees(data)" title="Edit"
+                                                style="cursor: pointer;" title="Edit">edit</i>
+                                            <i class="material-icons" (click)="DeleteFees(data)" title="Edit"
+                                                style="cursor: pointer;" title="Edit">delete</i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <div class="btn-group">
+                            <strong>
+                                <h4>Fees List</h4>
+                            </strong>
+                            <div class="m-auto">
+                                <button style="left:850%;" (click)="SaveCollege()" mat-raised-button color="primary">Add
+                                    Fees</button></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="container">
+                                <div *ngIf="collegeListshow" class="table">
+                                    <table class="table">
+                                        <thead class=" text-primary">
+                                            <th>Fees</th>
+                                            <th>Date</th>
+                                            <th>Action</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let course of courseList| paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                                                <td>{{course.fees}}</td>
+                                                <td>{{course.date}}</td>
+                                                <td>
+                                                    <i class="material-icons" (click)="EditFees(course)" title="Edit"
+                                                        style="cursor: pointer;" title="Edit">edit</i>
+                                                    <i class="material-icons" (click)="DeleteFees(course)" title="Edit"
+                                                        style="cursor: pointer;" title="Edit">delete</i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <form [formGroup]="AddFeesDataForm" class="example-form">
+                                            <div *ngIf="AddFeesList" class="table-responsive">
+                                                <p>
+                                                    <mat-form-field appearance="legacy">
+                                                        <mat-label>Add Fees</mat-label>
+                                                        <input matInput placeholder="fees" formControlName="fees">
+                                                        <mat-hint>Fees</mat-hint>
+                                                    </mat-form-field>
+                                                </p>
+
+                                                <button type="button" class="btn btn-success"
+                                                    (click)="submitfees()">Submit
+                                                </button>
+                                                <button type="button" class="btn btn-danger"
+                                                    (click)="canceldetails()">Cancel
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <form [formGroup]="FeesDataForm" class="example-form">
+                            <div *ngIf="datagramshow" class="table-responsive">
+                                <p>
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Fill Fees</mat-label>
+                                        <input matInput placeholder="Please Enter Your Fees" formControlName="fees">
+                                        <mat-hint>Fees</mat-hint>
+                                    </mat-form-field>
+                                </p>
+
+                                <button type="button" class="btn btn-primary" (click)="updateFees()">Submit
+                                    Details</button>
+                                <button type="button" class="btn btn-danger" (click)="canceldetails()">Cancel
+                                    Details</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

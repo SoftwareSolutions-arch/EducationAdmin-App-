@@ -1,0 +1,396 @@
+<div class="main-content country-state-city-wrap">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-xl-12 col-md-12 align-self-stretch d-flex">
+        <div class="card card-default card-custome custome-icon-i-w">
+          <div class="card-header">
+            <div class="row justify-content-center align-item-center align-self-center h-100">
+              <div class="col-md-12 col">
+                <div class="card-header-warning card-header-icon">
+                  <div class="card-icon">
+                    <h3 class="h4">All Details</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body location_wrap">
+            <div class="col-md-12">
+              <div *ngIf="collegeDetails" class="table-responsive">
+                <div class="row">
+                  <!-- infrastructure -->
+                  <div class="col-md-4 col-sm-6 mb-3">
+                    <div class="card card-default card-custome custome-icon-i-w mt-0"
+                      style="height: 500px; overflow: hidden;">
+                      <div class="card-header w3-light-grey">
+                        <h3 class="m-0"> Infrastructure</h3>
+                      </div>
+                      <div class="card-body px-0 py-0">
+                        <div class="slimscroll-wrapper-custom" slimScroll>
+                          <ul>
+                            <li *ngFor="let state of infraList;let i = index"
+                              [ngClass]="i==GlobalStateSelected ? 'loc_active' : ''">
+                              <div class="row">
+                                <div style="cursor: pointer;" class="col-md-8 col-8">
+                                  {{state.infrastructure}}</div>
+                                <div class="col-md-4 px-0 col-4">
+                                  <span [ngClass]="i==GlobalStateSelected ? 'show' : 'hide'"
+                                    class="list-detail-icon text-right float-right">
+                                    <i class="material-icons mr-2" (click)="editinfrastructure(state);"
+                                      style="cursor: pointer; font-size: 22px;">edit</i>
+                                    <i class="material-icons text-danger" (click)="Deleteinfrastructure(state)"
+                                      style="cursor: pointer; font-size: 22px;">delete</i>
+                                  </span>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-center mt-3">
+                      <button mat-raised-button color="primary" (click)="addinfrastructure('')">Add
+                        Infrastructure</button>
+                    </div>
+                  </div>
+
+                  <!-- college -->
+                  <div class="col-md-4 col-sm-6 mb-3">
+                    <div class="card card-default card-custome custome-icon-i-w mt-0"
+                      style="height: 500px; overflow: hidden;">
+                      <div class="card-header w3-light-grey">
+                        <h3 class="m-0"> College Types</h3>
+                      </div>
+                      <div class="card-body px-0 py-0">
+                        <div class="slimscroll-wrapper-custom" slimScroll>
+                          <ul>
+                            <li *ngFor="let city of courseList;let i = index"
+                              [ngClass]="i==GlobalCitySelected ? 'loc_active' : ''">
+                              <div class="row">
+                                <div style="cursor: pointer;" class="col-md-8 col-8">
+                                  {{city.college_types}}
+                                </div>
+                                <div class="col-md-4 px-0 col-4">
+                                  <span [ngClass]="i==GlobalCitySelected ? 'show' : 'hide'"
+                                    class="list-detail-icon text-right float-right">
+                                    <i class="material-icons mr-2" (click)="editcollegeDetails(city);"
+                                      style="cursor: pointer; font-size: 22px;">edit</i>
+                                    <i class="material-icons text-danger" (click)="DeleteCollege(city)"
+                                      style="cursor: pointer; font-size: 22px;">delete</i>
+                                  </span>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="text-center mt-3">
+                      <button mat-raised-button color="primary" (click)="addcollegeTypes()">Add College Types</button>
+                    </div>
+                  </div>
+
+                  <!-- ExamType -->
+                  <div class="col-md-4 col-sm-6 mb-3">
+                    <div class="card card-default card-custome custome-icon-i-w mt-0"
+                      style="height: 500px; overflow: hidden;">
+                      <div class="card-header w3-light-grey">
+                        <h3 class="m-0"> Exam Type</h3>
+                      </div>
+                      <div class="card-body px-0 py-0">
+                        <div class="slimscroll-wrapper-custom" slimScroll>
+                          <ul>
+                            <li *ngFor="let city of examType;let i = index"
+                              [ngClass]="i==GlobalCitySelected ? 'loc_active' : ''">
+                              <div class="row">
+                                <div style="cursor: pointer;" (click)="SelectCity(i)" class="col-md-8 col-8">
+                                  {{city.examtype}}
+                                </div>
+                                <div class="col-md-4 px-0 col-4">
+                                  <span [ngClass]="i==GlobalCitySelected ? 'show' : 'hide'"
+                                    class="list-detail-icon text-right float-right">
+                                    <i class="material-icons mr-2" (click)="editExamType(city);"
+                                      style="cursor: pointer; font-size: 22px;">edit</i>
+                                    <i class="material-icons text-danger" (click)="DeleteExam(city)"
+                                      style="cursor: pointer; font-size: 22px;">delete</i>
+                                  </span>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="text-center mt-3">
+                      <button mat-raised-button color="primary" (click)="addexamTypes()">Add exam type</button>
+                    </div>
+                  </div>
+
+                  <!--Course Type -->
+                  <div *ngIf="xuv" class="table-responsive">
+                  <div class="col-md-6 col-sm-6 mb-3">
+                    <div class="card card-default card-custome custome-icon-i-w mt-0"
+                      style="height: 500px; overflow: hidden;">
+                      <div class="card-header w3-light-grey">
+                        <h3 class="m-0"> Course Type</h3>
+                      </div>
+                      <div class="card-body px-0 py-0">
+                        <div class="slimscroll-wrapper-custom" slimScroll>
+                          <ul>
+                            <li *ngFor="let city of CourseType;let i = index"
+                              [ngClass]="i==GlobalCitySelected ? 'loc_active' : ''">
+                              <div class="row">
+                                <div style="cursor: pointer;" (click)="SelectCourse(city._id,i)" class="col-md-8 col-8">
+                                  {{city.title}}
+                                </div>
+                                <div class="col-md-4 px-0 col-4">
+                                  <span [ngClass]="i==GlobalCitySelected ? 'show' : 'hide'"
+                                    class="list-detail-icon text-right float-right">
+                                    <i class="material-icons mr-2" (click)="editCourseType(city);"
+                                      style="cursor: pointer; font-size: 22px;">edit</i>
+                                      <i class="material-icons add_circle_outline" (click)="addBranch(city)"
+                                      style="cursor: pointer; font-size: 22px;">add</i>
+                                    <i class="material-icons text-danger" (click)="DeleteCourse(city)"
+                                      style="cursor: pointer; font-size: 22px;">delete</i>
+                                  </span>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="text-center mt-3">
+                      <button mat-raised-button color="primary" (click)="addCourseTypes()">Add exam type</button>
+                    </div>
+                  </div>
+                  </div>
+
+                  <!-- branch -->
+                  <div *ngIf="xyz" class="table-responsive">
+                  <div class="col-md-6 col-sm-6 mb-3">
+                    <div class="card card-default card-custome custome-icon-i-w mt-0"
+                      style="height: 500px; overflow: hidden;">
+                      <div class="card-header w3-light-grey">
+                        <h3 class="m-0">Branch</h3>
+                      </div>
+                      <div class="card-body px-0 py-0" style="overflow: hidden">
+                        <div class="slimscroll-wrapper-custom" slimScroll>
+                          <ul>
+                            <li *ngFor="let country of dataList;let i = index"
+                              [ngClass]="i==GlobalCountrySelected ? 'loc_active' : ''">
+                              <div class="row">
+                                <div style="cursor: pointer;" class="col-md-8 col-8">
+                                  {{country.branch_types}}</div>
+                                <div class="col-md-4 px-0 col-4">
+                                  <span [ngClass]="i==GlobalCountrySelected ? 'show' : 'hide'"
+                                    class="list-detail-icon text-right float-right">
+                                    <i class="material-icons mr-2" (click)="editbranchTypes(country);"
+                                      style="cursor: pointer; font-size: 22px;">edit</i>
+                                    <i class="material-icons text-danger" (click)="DeletebranchTypes(country)"
+                                      style="cursor: pointer; font-size: 22px;">delete</i>
+                                  </span>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="text-center mt-3">
+                      <button mat-raised-button color="primary" (click)="addbranch()">Add Branch</button>
+                    </div> -->
+                  </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="collegeDetailsshow" class="table-responsive">
+                <form [formGroup]="BranchForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="branch_types" placeholder="Branch Types">
+                  </mat-form-field>
+
+
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="Updatebranch()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">update</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="CancelCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <div *ngIf="addbranchDeatilshow" class="table-responsive">
+                <form [formGroup]="AddBranchForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="branch_types" placeholder="Branch Types">
+                  </mat-form-field>
+
+
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="submitbranch()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">submit</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="CancelCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <div *ngIf="infraDetailsshow" class="table-responsive">
+                <form [formGroup]="InfraForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="infrastructure" placeholder="infrastructure">
+                  </mat-form-field>
+
+
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="Updateinfrastructure()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">update</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="CancelCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <div *ngIf="addinfraDeatilshow" class="table-responsive">
+                <form [formGroup]="AddinfraForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="infrastructure" placeholder="infrastructure Types">
+                  </mat-form-field>
+
+
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="submitinfrastructure()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">submit</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="CancelCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <div *ngIf="collegeshowList" class="table-responsive">
+                <form [formGroup]="collegeForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="college_types" placeholder="college types">
+                  </mat-form-field>
+
+
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="Updatecollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">update</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="CancelCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <div *ngIf="addcollegeDeatilshow" class="table-responsive">
+                <form [formGroup]="AddCollegeForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="college_types" placeholder="college types ">
+                  </mat-form-field>
+
+
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="submitcollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">submit</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="CancelCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <div *ngIf="examshowList" class="table-responsive">
+                <form [formGroup]="examForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="examtype" placeholder="Exam types">
+                  </mat-form-field>
+
+
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="Updateexam()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">update</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="CancelCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <div *ngIf="examDeatilshow" class="table-responsive">
+                <form [formGroup]="addexamForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="examtype" placeholder="Exam types ">
+                  </mat-form-field>
+
+
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="submitexam()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">submit</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="CancelCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+              <!-- ============================================================================-->
+
+              <div *ngIf="CourseshowList" class="table-responsive">
+                <form [formGroup]="CourseForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="title" placeholder="Course Name">
+                  </mat-form-field>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="UpdateCourse()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">update</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="CancelCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <div *ngIf="CourseDetaildata" class="table-responsive">
+                <form [formGroup]="addCourseForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="branch" placeholder="Exam types ">
+                  </mat-form-field>
+
+
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="submitcourse()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">submit</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="CancelCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

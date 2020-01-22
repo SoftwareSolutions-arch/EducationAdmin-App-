@@ -1,0 +1,96 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <div class="btn-group">
+                            <strong>
+                                <h4>Articles {{Title}}</h4>
+                            </strong>
+                            <div class="m-auto">
+                                <button style="left:780%;" (click)="saveArticles()" mat-raised-button
+                                    color="primary">Add
+                                    Article</button></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div *ngIf="showarticlelist" class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>Title</th>
+                                    <th>ArticleDetail</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        *ngFor="let article of articleList| paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                                        <td>{{article.title}}</td>
+                                        <td>{{article.detailText}}</td>
+                                        <td>
+                                            <i class="material-icons" (click)="EditArticles(article)" title="Edit"
+                                                style="cursor: pointer;" title="Edit">edit</i>
+                                            <i class="material-icons" (click)="DeleteArticles(article)" title="Edit"
+                                                style="cursor: pointer;" title="Edit">delete</i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>
+                        <div *ngIf="showarticledetails" class="table-responsive">
+                            <form [formGroup]="ArticleForm" class="example-form">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput formControlName="article" placeholder="Title">
+                                </mat-form-field>
+                                <angular-editor formControlName="articledetails" [placeholder]="'Enter text here...'">
+                                </angular-editor>
+
+                                <div *ngIf="!tempurl;else update_collegecontent" class="m-auto" style="float: left;">
+                                    <button (click)="SaveCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                                        color="primary">Save</button>
+                                </div>
+                                <ng-template #update_collegecontent>
+                                    <button class="mb-2 mr-2 mb-1 mt-4" mat-raised-button color="primary"
+                                        (click)="UpdateArticle(tempurl,UserIndex)">Update</button>
+                                </ng-template>
+                                <div class="m-auto" style="float: left;">
+                                    <button (click)="CancelArticle()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                                        color="primary">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <form [formGroup]="AddArticle" class="example-form">
+                                    <div *ngIf="addarticleList" class="table-responsive">
+                                        <p>
+                                            <mat-form-field appearance="legacy">
+                                                <mat-label>Add Article</mat-label>
+                                                <input matInput placeholder="article" formControlName="title">
+                                                <mat-hint>Article</mat-hint>
+                                            </mat-form-field>
+                                        </p>
+
+                                        <p>
+                                            <mat-label>Article details</mat-label>
+                                            <angular-editor formControlName="detailText"
+                                                [placeholder]="'Enter text here...'">
+                                            </angular-editor>
+                                        </p>
+
+                                        <button type="button" class="btn btn-success" (click)="submitArticle()">Submit
+                                        </button>
+                                        <button type="button" class="btn btn-danger" (click)="CancelArticle()">Cancel
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+<div class="main-content country-state-city-wrap">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-xl-12 col-md-12 align-self-stretch d-flex">
+        <div class="card card-default card-custome custome-icon-i-w">
+          <div class="card-header">
+            <div class="row justify-content-center align-item-center align-self-center h-100">
+              <div class="col-md-12 col">
+                <div class="card-header-warning card-header-icon">
+                  <div class="card-icon">
+                    <h3 class="h4">Edit Details</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body location_wrap">
+            <div class="col-md-12">
+              <div *ngIf="companyDetails" class="table-responsive">
+                <div class="row">
+                  <!-- Company -->
+                  <div class="col-md-6 col-sm-6 mb-3">
+                    <div class="card card-default card-custome custome-icon-i-w mt-0"
+                      style="height: 500px; overflow: hidden;">
+                      <div class="card-header w3-light-grey">
+                        <h3 class="m-0"> Company Name</h3>
+                      </div>
+                      <div class="card-body px-0 py-0">
+                        <div class="slimscroll-wrapper-custom" slimScroll>
+                          <ul>
+                            <li *ngFor="let state of this.examType;let i = index"
+                              [ngClass]="i==GlobalStateSelected ? 'loc_active' : ''">
+                              <div class="row">
+                                <div style="cursor: pointer;" class="col-md-8 col-8">
+                                  {{state.company_name}}</div>
+                                <div class="col-md-4 px-0 col-4">
+                                  <span [ngClass]="i==GlobalStateSelected ? 'show' : 'hide'"
+                                    class="list-detail-icon text-right float-right">
+                                    <i class="material-icons mr-2" (click)="editcompany(state);"
+                                      style="cursor: pointer; font-size: 22px;">edit</i>
+                                    <i class="material-icons text-danger" (click)="deletecompany(state)"
+                                      style="cursor: pointer; font-size: 22px;">delete</i>
+                                  </span>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-center mt-3">
+                      <button mat-raised-button color="primary" (click)="addcompany('')">Add
+                        company</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div *ngIf="editcompanydetails" class="table-responsive">
+                <form [formGroup]="editcompanyForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="company_name" placeholder="company Name">
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="package" placeholder="package">
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="details" placeholder="details">
+                  </mat-form-field>
+
+
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="Update()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">update</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="cancel()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <div *ngIf="addcompanydetails" class="table-responsive">
+                <form [formGroup]="addcompanyForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="company_name" placeholder="company name ">
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="package" placeholder="package ">
+                  </mat-form-field>
+
+
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="details" placeholder="details ">
+                  </mat-form-field>
+
+
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="submitcompany()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">submit</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="cancel()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

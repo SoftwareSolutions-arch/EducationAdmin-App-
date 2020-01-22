@@ -1,0 +1,132 @@
+<div class="main-content country-state-city-wrap">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-xl-12 col-md-12 align-self-stretch d-flex">
+        <div class="card card-default card-custome custome-icon-i-w">
+          <div class="card-header">
+            <div class="row justify-content-center align-item-center align-self-center h-100">
+              <div class="col-md-12 col">
+                <div class="card-header-warning card-header-icon">
+                  <div class="card-icon">
+                    <h3 class="h4">Location</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body location_wrap">
+            <div class="col-md-12">
+              <div class="row">
+                <!-- country -->
+                <div class="col-md-4 col-sm-6 mb-3">
+                  <div class="card card-default card-custome custome-icon-i-w mt-0"
+                    style="height: 500px; overflow: hidden;">
+                    <div class="card-header w3-light-grey">
+                      <h3 class="m-0">Country</h3>
+                    </div>
+                    <div class="card-body px-0 py-0" style="overflow: hidden">
+                      <div class="slimscroll-wrapper-custom" slimScroll>
+                        <ul>
+                          <li *ngFor="let country of CountryList;let i = index"
+                            [ngClass]="i==GlobalCountrySelected ? 'loc_active' : ''">
+                            <div class="row">
+                              <div style="cursor: pointer;" (click)="SelectCountry(country._id,i)"
+                                class="col-md-8 col-8">
+                                {{country.name}}</div>
+                              <div class="col-md-4 px-0 col-4">
+                                <span [ngClass]="i==GlobalCountrySelected ? 'show' : 'hide'"
+                                  class="list-detail-icon text-right float-right">
+                                  <i class="material-icons mr-2" (click)="openCountryPopup(country);"
+                                    style="cursor: pointer; font-size: 22px;">edit</i>
+                                  <i class="material-icons text-danger" (click)="DeleteCountry(country._id,i)"
+                                    style="cursor: pointer; font-size: 22px;">delete</i>
+                                </span>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center mt-3">
+                    <button mat-raised-button color="primary" (click)="openCountryPopup('')">Add Country</button>
+                  </div>
+                </div>
+                <!-- state -->
+                <div class="col-md-4 col-sm-6 mb-3">
+                  <div class="card card-default card-custome custome-icon-i-w mt-0"
+                    style="height: 500px; overflow: hidden;">
+                    <div class="card-header w3-light-grey">
+                      <h3 class="m-0"> State</h3>
+                    </div>
+                    <div class="card-body px-0 py-0">
+                      <div class="slimscroll-wrapper-custom" slimScroll>
+                        <ul>
+                          <li *ngFor="let state of StateList;let i = index"
+                            [ngClass]="i==GlobalStateSelected ? 'loc_active' : ''">
+                            <div class="row">
+                              <div style="cursor: pointer;" (click)="SelectState(state._id,i)" class="col-md-8 col-8">
+                                {{state.name}}</div>
+                              <div class="col-md-4 px-0 col-4">
+                                <span [ngClass]="i==GlobalStateSelected ? 'show' : 'hide'"
+                                  class="list-detail-icon text-right float-right">
+                                  <i class="material-icons mr-2" (click)="openStatePopup(state);"
+                                    style="cursor: pointer; font-size: 22px;">edit</i>
+                                  <i class="material-icons text-danger" (click)="DeleteState(state._id,i)"
+                                    style="cursor: pointer; font-size: 22px;">delete</i>
+                                </span>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center mt-3">
+                    <button mat-raised-button color="primary" (click)="openStatePopup('')">Add State</button>
+                  </div>
+                </div>
+                <!-- city -->
+                <div class="col-md-4 col-sm-6 mb-3">
+                  <div class="card card-default card-custome custome-icon-i-w mt-0"
+                    style="height: 500px; overflow: hidden;">
+                    <div class="card-header w3-light-grey">
+                      <h3 class="m-0"> City</h3>
+                    </div>
+                    <div class="card-body px-0 py-0">
+                      <div class="slimscroll-wrapper-custom" slimScroll>
+                        <ul>
+                          <li *ngFor="let city of CityList;let i = index"
+                            [ngClass]="i==GlobalCitySelected ? 'loc_active' : ''">
+                            <div class="row">
+                              <div style="cursor: pointer;" (click)="SelectCity(i)" class="col-md-8 col-8">{{city.name}}
+                              </div>
+                              <div class="col-md-4 px-0 col-4">
+                                <span [ngClass]="i==GlobalCitySelected ? 'show' : 'hide'"
+                                  class="list-detail-icon text-right float-right">
+                                  <i class="material-icons mr-2" (click)="openCityPopup(city);"
+                                    style="cursor: pointer; font-size: 22px;">edit</i>
+                                  <i class="material-icons text-danger" (click)="DeleteCity(city._id,i)"
+                                    style="cursor: pointer; font-size: 22px;">delete</i>
+                                </span>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="text-center mt-3">
+                    <button mat-raised-button color="primary" (click)="openCityPopup('')">Add City</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

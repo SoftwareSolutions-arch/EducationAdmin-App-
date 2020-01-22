@@ -1,0 +1,98 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+             <div class="btn-group">
+                            <strong>
+                                <h4>Leads {{Title}}</h4>
+                            </strong>
+                            <div class="m-auto">
+                                <button style="left:760%;" (click)="SaveLeads()" mat-raised-button color="primary">Add
+                                    Leads</button></div>
+                        </div>
+          </div>
+          <div class="card-body">
+            <div *ngIf="showleadlist" class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Address</th>
+                  <th>Action</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let lead of LeadList?.result; let i = index">
+                    <td>{{lead.email}}</td>
+                    <td>{{lead.phone}}</td>
+                    <td>{{lead.address}}</td>
+                    <td>
+                      <i class="material-icons" (click)="EditArticles(lead)" title="Edit" style="cursor: pointer;"
+                        title="Edit">edit</i>
+                      <i class="material-icons" (click)="delete(lead)" title="Edit" style="cursor: pointer;"
+                        title="Edit">delete</i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div *ngIf="showleaddetails" class="table-responsive">
+              <div [formGroup]="LeadForm" class="example-form">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="email" placeholder="email">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="phone" placeholder="phone">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="address" placeholder="address">
+                </mat-form-field>
+
+                <div class="text-center m-auto">
+                  <button (click)="UpdateArticle()"
+                    class="rounded-btn m-auto text-center col-4 mt-3 mb-2 mt-2 text-center" mat-raised-button
+                    color="primary">Update</button>
+                </div>
+                <div class="text-center m-auto">
+                  <button (click)="CancelArticle()"
+                    class="rounded-btn m-auto text-center col-4 mt-3 mb-2 mt-2 text-center" mat-raised-button
+                    color="primary">Cancel</button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="addleaddetails" class="table-responsive">
+                <div [formGroup]="addLeadForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="email" placeholder="email">
+                  </mat-form-field>
+  
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="phone" placeholder="phone">
+                  </mat-form-field>
+  
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="address" placeholder="address">
+                  </mat-form-field>
+  
+                  <div class="text-center m-auto">
+                    <button (click)="addleads()"
+                      class="rounded-btn m-auto text-center col-4 mt-3 mb-2 mt-2 text-center" mat-raised-button
+                      color="primary">Add</button>
+                  </div>
+                  <div class="text-center m-auto">
+                    <button (click)="CancelArticle()"
+                      class="rounded-btn m-auto text-center col-4 mt-3 mb-2 mt-2 text-center" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

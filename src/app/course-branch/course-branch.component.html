@@ -1,0 +1,168 @@
+<div class="main-content country-state-city-wrap">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-xl-12 col-md-12 align-self-stretch d-flex">
+        <div class="card card-default card-custome custome-icon-i-w">
+          <div class="card-header">
+            <div class="row justify-content-center align-item-center align-self-center h-100">
+              <div class="col-md-12 col">
+                <div class="card-header-warning card-header-icon">
+                  <div class="card-icon">
+                    <h3 class="h4">Course-Branch</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body location_wrap">
+            <div class="col-md-12">
+              <div *ngIf="collegeDetails" class="table-responsive">
+                <div class="row">
+                  <!-- Course -->
+                  <div class="col-md-5 col-sm-6 mb-3">
+                    <div class="card card-default card-custome custome-icon-i-w mt-0"
+                      style="height: 500px; overflow: hidden;">
+                      <div class="card-header w3-light-grey">
+                        <h3 class="m-0">Course</h3>
+                      </div>
+                      <div class="card-body px-0 py-0" style="overflow: hidden">
+                        <div class="slimscroll-wrapper-custom" slimScroll>
+                          <ul>
+                            <li *ngFor="let Course of CourseType;let i = index"
+                              [ngClass]="i==GlobalCountrySelected ? 'loc_active' : ''">
+                              <div class="row">
+                                <div style="cursor: pointer;" (click)="SelectCourse(Course._id,i)"
+                                  class="col-md-8 col-8">
+                                  {{Course.title}}</div>
+                                <div class="col-md-4 px-0 col-4">
+                                  <span [ngClass]="i==GlobalCountrySelected ? 'show' : 'hide'"
+                                    class="list-detail-icon text-right float-right">
+                                    <i class="material-icons mr-2" (click)="editCourseType(Course);"
+                                      style="cursor: pointer; font-size: 22px;">edit</i>
+                                    <i class="material-icons text-danger" (click)="DeleteCourse(Course)"
+                                      style="cursor: pointer; font-size: 22px;">delete</i>
+                                  </span>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-center mt-3">
+                      <button mat-raised-button color="primary" (click)="addCourse()">Add Course</button>
+                    </div>
+                  </div>
+                  <!-- Branch -->
+                  <div class="col-md-5 col-sm-6 mb-3">
+                    <div class="card card-default card-custome custome-icon-i-w mt-0"
+                      style="height: 500px; overflow: hidden;">
+                      <div class="card-header w3-light-grey">
+                        <h3 class="m-0"> Branch</h3>
+                      </div>
+                      <div class="card-body px-0 py-0">
+                        <div class="slimscroll-wrapper-custom" slimScroll>
+                          <ul>
+                            <li *ngFor="let Branch of this.StateList;let i = index"
+                              [ngClass]="i==GlobalStateSelected ? 'loc_active' : ''">
+                              <div class="row">
+                                <div style="cursor: pointer;" class="col-md-8 col-8">
+                                  {{Branch.branch}}</div>
+                                <div class="col-md-4 px-0 col-4">
+                                  <span [ngClass]="i==GlobalStateSelected ? 'show' : 'hide'"
+                                    class="list-detail-icon text-right float-right">
+                                    <i class="material-icons mr-2" (click)="editBranch(Branch);"
+                                      style="cursor: pointer; font-size: 22px;">edit</i>
+                                    <i class="material-icons text-danger" (click)="DeleteBranch(Branch)"
+                                      style="cursor: pointer; font-size: 22px;">delete</i>
+                                  </span>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-center mt-3">
+                      <button mat-raised-button color="primary" (click)="addBranch()">Add Branch</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="CourseshowList" class="table-responsive">
+                <form [formGroup]="CourseForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="title" placeholder="Course Name">
+                  </mat-form-field>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="UpdateCourse()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">update</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="CancelCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <div *ngIf="CourseDetaildata" class="table-responsive">
+                <form [formGroup]="addCourseForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="title" placeholder="course types ">
+                  </mat-form-field>
+
+
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="submitcourse()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">submit</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="CancelCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <div *ngIf="BranchshowList" class="table-responsive">
+                <form [formGroup]="BranchForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="branch" placeholder="Branch Name">
+                  </mat-form-field>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="updateBranch()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">update</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="CancelCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <div *ngIf="BranchDetaildata" class="table-responsive">
+                <form [formGroup]="addBranchForm" class="example-form">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="title" placeholder="Branch types ">
+                  </mat-form-field>
+
+
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="submitbranch()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">submit</button>
+                  </div>
+                  <div class="m-auto" style="float: left;">
+                    <button (click)="CancelCollege()" class="mb-2 mr-2 mb-1 mt-4" mat-raised-button
+                      color="primary">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

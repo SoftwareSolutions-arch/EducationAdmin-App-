@@ -1,0 +1,67 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<hr class="mt-0"> 
+<div mat-dialog-content style="width: 750px;">
+    <div class="row col-md-12">
+        <form [formGroup]="StateFormData" class="example-form">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput formControlName="name" placeholder="State Name">
+                            <mat-error>
+                                <span *ngIf="StateFormData.get('name').hasError('required')">Please enter
+                                    country name.
+                                </span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput formControlName="shortname" placeholder="Short Name">
+                            <mat-error>
+                                <span *ngIf="StateFormData.get('shortname').hasError('required')">Please enter
+                                    short name.
+                                </span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                            <mat-select formControlName="country" placeholder="Country">
+                                <mat-option *ngFor="let country of CountryList" [value]="country._id">{{country.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <span *ngIf="StateFormData.get('country').hasError('required')">Please select
+                                    country.
+                                </span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="row col-md-12 mt-3">
+                        <div class="col-md-12">
+                            <button class="mb-2 mr-2 mb-1" mat-raised-button (click)="onNoClick();"
+                                color="primary">Cancel</button>
+                            <div style="float: left;">
+                                <button [disabled]="isDisabled" *ngIf="!temp;else update_btn" class="mb-2 mr-2 mb-1" mat-raised-button
+                                    color="primary" (click)="CreateState()">Save</button>
+                                <ng-template #update_btn>
+                                    <button [disabled]="isDisabled" class="mb-2 mr-2 mb-1" mat-raised-button color="primary"
+                                        (click)="EditState()">Update</button>
+                                </ng-template>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
